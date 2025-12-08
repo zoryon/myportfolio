@@ -4,7 +4,7 @@ const SectionTitle = ({ title }: { title: string }) => {
             {/* Command Line Input */}
             <p className="text-sm font-mono text-gray-500 mb-2">
                 <span className="text-green-400">gioelespata@dev</span>:
-                <span className="text-blue-400">~/dev/myportfolio/</span>
+                <span className="text-blue-400">~/myportfolio/</span>
                 $ cat {title.toLowerCase().replace(/\s/g, '-')}.md
             </p>
             

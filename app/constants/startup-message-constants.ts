@@ -1,5 +1,5 @@
 import { StartupMessageLine } from "@/types/startup-message-types";
-import { TYPEWRITER_DELAY } from "./hero-constants";
+import { TYPEWRITER_DELAY } from "@/constants/hero-constants";
 
 export const STARTUP_MESSAGE_LINES: readonly StartupMessageLine[] = [
     {

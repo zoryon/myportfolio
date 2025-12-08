@@ -3,9 +3,11 @@
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
-import Magnetic from "./ui/Magnetic";
-import GradientSeparator from "./ui/GradientSeparator";
-import HoverFillEffect from "./ui/HoverFillEffect";
+import Magnetic from "@/components/ui/Magnetic";
+import GradientSeparator from "@/components/ui/GradientSeparator";
+import HoverFillEffect from "@/components/ui/HoverFillEffect";
+import SectionTitle from "@/components/ui/SectionTitle";
+import { SOCIAL_LINKS } from "@/constants/social-constants";
 
 const ContactSection = () => {
     return (
@@ -13,7 +15,7 @@ const ContactSection = () => {
             <GradientSeparator />
 
             <div className="flex flex-col ml-0 md:ml-12 z-10">
-                <h2 className="text-sm font-mono text-muted tracking-widest mb-6">// INITIALIZE_UPLINK</h2>
+                <SectionTitle title="CONTACT_ME" />
 
                 <div className="max-w-4xl">
                     <h3 className="text-[10vw] md:text-[7vw] leading-[0.9] font-bold text-zinc-300 tracking-tighter">
@@ -43,9 +45,9 @@ const ContactSection = () => {
 
                 {/* Social Links */}
                 <div className="flex gap-8 mt-12 md:mt-0 mb-8 md:mb-4">
-                    {['GitHub', 'LinkedIn', 'Twitter'].map((item) => (
-                        <Link key={item} href="#" target="_blank" className="text-muted hover:text-primary font-mono text-sm uppercase tracking-widest transition-colors">
-                            {item}
+                    {SOCIAL_LINKS.map((item) => (
+                        <Link key={item.name} href={item.url} target="_blank" className="text-muted hover:text-primary font-mono text-sm uppercase tracking-widest transition-colors">
+                            {item.name}
                         </Link>
                     ))}
                 </div>
