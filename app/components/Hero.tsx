@@ -34,7 +34,7 @@ const HeroTitle = ({ titleArray }: { titleArray: string[] }) => {
                         animate={{ y: 0 }}
                         transition={{ duration: 0.8, delay: 0.1 * i, ease: "circOut" }}
                         className={`
-                            text-[12vw] leading-[0.9] font-bold tracking-tighter 
+                            text-[14vw] leading-[0.9] font-bold tracking-tighter 
                             ${i === 0 ? "text-primary mix-blend-difference" : "text-zinc-600"}
                         `}
                     >
@@ -53,7 +53,7 @@ const HeroDescription = ({ description, delay, duration }: { description: string
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: delay, duration: duration }}
-            className="mt-12 mr-1 md:max-w-lg text-secondary text-lg leading-relaxed"
+            className="mt-12 mr-1 md:max-w-lg text-secondary text-sm md:text-lg leading-relaxed"
         >
             <div>
                 {lines.map((line, i) => {
