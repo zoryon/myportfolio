@@ -3,11 +3,11 @@
 import { useEffect } from "react";
 import Lenis from "lenis";
 
-import Hero from "@/app/components/Hero";
-import ProjectList from "@/app/components/ProjectList";
-import ExperienceList from "@/app/components/ExperienceList";
-import CustomCursor from "@/app/components/ui/CustomCursor";
-import ContactSection from "@/app/components/ContactSection";
+import Hero from "@/components/Hero";
+import ProjectList from "@/components/ProjectList";
+import ExperienceList from "@/components/ExperienceList";
+import CustomCursor from "@/components/ui/CustomCursor";
+import ContactSection from "@/components/ContactSection";
 
 export default function Home() {
   // Initialize Smooth Scrolling (Lenis)
