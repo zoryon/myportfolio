@@ -1,11 +1,11 @@
 "use client";
 
 import { ArrowUpRight } from "lucide-react";
+import Link from "next/link";
 
 import Magnetic from "./ui/Magnetic";
 import GradientSeparator from "./ui/GradientSeparator";
 import HoverFillEffect from "./ui/HoverFillEffect";
-import Link from "next/link";
 
 const ContactSection = () => {
     return (

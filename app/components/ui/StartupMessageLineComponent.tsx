@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+
 import { StartupMessageLine } from "@/types/startup-message-types";
 import { STARTUP_MESSAGE_TYPE } from "@/constants/startup-message-constants";
 import { CHARACTERS } from "@/constants/characters-constants";

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 import StartupMessage from "@/components/ui/StartupMessage";
 import { CHARACTERS } from "@/constants/characters-constants";
-import { DESCRIPTION, DESCRIPTION_START_DELAY, TYPEWRITER_DELAY, TYPEWRITER_DURATION, TITLE } from "@/constants/hero-constants";
+import { DESCRIPTION, DESCRIPTION_START_DELAY, TYPEWRITER_DURATION, TITLE } from "@/constants/hero-constants";
 import { STARTUP_MESSAGE_LINES } from "@/constants/startup-message-constants";
 
 const Hero = () => {
@@ -47,6 +47,7 @@ const HeroTitle = ({ titleArray }: { titleArray: string[] }) => {
 }
 
 const HeroDescription = ({ description, delay, duration }: { description: string; delay: number; duration: number }) => {
+    const lines = description.split(CHARACTERS.DOT).map(line => line.trim()).filter(line => line.length > 0);
     return (
         <motion.div
             initial={{ opacity: 0 }}
@@ -55,8 +56,8 @@ const HeroDescription = ({ description, delay, duration }: { description: string
             className="mt-12 mr-1 md:max-w-lg text-secondary text-lg leading-relaxed"
         >
             <div>
-                {description.split(CHARACTERS.DOT).map((line, i) => {
-                    return <div key={i}>{line}</div>;
+                {lines.map((line, i) => {
+                    return <div key={i}>{line}{i < lines.length ? CHARACTERS.DOT : ""}</div>;
                 })}
             </div>
         </motion.div>
