@@ -14,7 +14,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Gioele Spata | Developer",
+  title: "Gioele Spata | Software Developer",
   description: "Gioele Spata's Portofolio",
 };
 

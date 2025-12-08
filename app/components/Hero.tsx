@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 
 import StartupMessage from "@/components/ui/StartupMessage";
-import { CHARACTERS } from "@/constants/characters-constants";
+import { CHARACTERS } from "@/constants/character-constants";
 import { DESCRIPTION, DESCRIPTION_START_DELAY, TYPEWRITER_DURATION, TITLE } from "@/constants/hero-constants";
 import { STARTUP_MESSAGE_LINES } from "@/constants/startup-message-constants";
 
