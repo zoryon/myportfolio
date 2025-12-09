@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import Link from "next/link";
 
@@ -12,20 +12,18 @@ const ProjectList = () => {
     const [hovered, setHovered] = useState<string | null>(null);
 
     return (
-        <section className="min-h-screen py-24 px-6 md:px-20 border-t border-border-subtle">
-            <div className="ml-0 md:ml-12">
-                <SectionTitle title="PROJECTS_LOG" />
+        <section className="py-32 px-6 md:px-12 lg:px-24 w-full max-w-[1800px] mx-auto">
+            <SectionTitle title="Selected Works" number="01" />
 
-                <div className="flex flex-col">
-                    {PROJECTS.map((project) => (
-                        <Project
-                            key={project.id}
-                            project={project}
-                            hovered={hovered}
-                            setHovered={setHovered}
-                        />
-                    ))}
-                </div>
+            <div className="flex flex-col w-full">
+                {PROJECTS.map((project) => (
+                    <Project
+                        key={project.id}
+                        project={project}
+                        hovered={hovered}
+                        setHovered={setHovered}
+                    />
+                ))}
             </div>
         </section>
     );
@@ -38,55 +36,78 @@ type ProjectProps = {
 }
 
 const Project = ({ project, hovered, setHovered }: ProjectProps) => {
-    const [isDesktop, setIsDesktop] = useState(false);
+    const isHovered = hovered === project.id;
+    const isDimmed = hovered !== null && !isHovered;
+    const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        const checkDesktop = () => setIsDesktop(window.innerWidth >= 1030);
-        checkDesktop();
-        window.addEventListener("resize", checkDesktop);
-        return () => window.removeEventListener("resize", checkDesktop);
+        const checkMobile = () => setIsMobile(window.innerWidth < 1030);
+        checkMobile();
+        window.addEventListener("resize", checkMobile);
+        return () => window.removeEventListener("resize", checkMobile);
     }, []);
 
     return (
         <motion.div
-            key={project.id}
-            initial={{ opacity: 0.5, x: 0 }}
-            animate={{ 
-                opacity: hovered === project.id ? 1 : 0.5, 
-                x: hovered === project.id && isDesktop ? 20 : 0 
-            }}
-            onHoverStart={() => setHovered(project.id)}
-            onHoverEnd={() => setHovered(null)}
-            onClick={() => setHovered(hovered === project.id ? null : project.id)}
-            className="group border-b border-border-subtle py-16 cursor-pointer relative"
+            initial={{ opacity: 1 }}
+            animate={{ opacity: isDimmed ? 0.3 : 1 }}
+            transition={{ duration: 0.4 }}
+            {...(!isMobile ? {
+                onHoverStart: () => setHovered(project.id),
+                onHoverEnd: () => setHovered(null)
+            } : {})}
+            onClick={() => isMobile && setHovered(isHovered ? null : project.id)}
+            className="group border-t border-border-subtle py-12 md:py-16 cursor-pointer relative transition-colors duration-500 hover:border-zinc-600"
         >
-            <div className="flex flex-col md:flex-row md:items-baseline justify-between">
-                <span className="text-zinc-600 font-mono text-xl mb-4 md:mb-0 mr-8">{project.id}</span>
-                <h3 className={`text-5xl lg:text-7xl font-bold uppercase tracking-tight transition-colors duration-300 ${hovered === project.id ? "text-primary" : "group-hover:text-primary"}`}>
-                    {project.name}
-                </h3>
-                <span className="hidden md:block text-muted font-mono text-sm ml-auto">{project.category}</span>
+            <div className="flex flex-col md:flex-row md:items-baseline justify-between gap-6">
+                <div className="flex items-baseline gap-8 md:gap-16">
+                    <span className="text-muted font-mono text-sm tracking-widest">/{project.id}</span>
+                    <h3 className="text-4xl md:text-6xl lg:text-7xl font-bold uppercase tracking-tighter text-foreground group-hover:translate-x-4 transition-transform duration-500 ease-out">
+                        {project.name}
+                    </h3>
+                </div>
+                
+                <div className="flex flex-col items-start md:items-end gap-2">
+                    <span className="text-secondary font-mono text-xs uppercase tracking-widest">{project.category}</span>
+                    <motion.div 
+                        initial={{ opacity: 0, x: -10 }}
+                        animate={{ opacity: isHovered ? 1 : 0, x: isHovered ? 0 : -10 }}
+                        className="hidden md:flex items-center gap-2 text-primary text-sm font-bold uppercase tracking-widest mt-2"
+                    >
+                        Explore <ArrowUpRight size={14} />
+                    </motion.div>
+                </div>
             </div>
 
-            {/* Expansion Details */}
-            <motion.div
-                initial={{ height: 0, opacity: 0 }}
-                animate={{
-                    height: hovered === project.id ? "auto" : 0,
-                    opacity: hovered === project.id ? 1 : 0
-                }}
-                className="overflow-hidden"
-                onClick={(e) => e.stopPropagation()}
-            >
-                <p className="mt-6 text-xl text-secondary max-w-2xl">{project.description}</p>
-                <div className="flex flex-col items-start gap-2 mt-4 text-primary uppercase text-sm font-bold tracking-widest">
-                    {project.website && (
-                        <Link href={project.website} target="_blank" className="flex items-center gap-2">View Website <ArrowUpRight size={16} /></Link>
-                    )}
-                    <Link href={project.clientRepository} target="_blank" className="flex items-center gap-2">View Client Repository <ArrowUpRight size={16} /></Link>
-                    <Link href={project.serverRepository} target="_blank" className="flex items-center gap-2">View Server Repository <ArrowUpRight size={16} /></Link>
-                </div>
-            </motion.div>
+            <AnimatePresence>
+                {isHovered && (
+                    <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                    >
+                        <div className="pt-8 md:pl-[calc(2rem+4ch)] max-w-3xl">
+                            <p className="text-lg md:text-xl text-secondary leading-relaxed">{project.description}</p>
+                            
+                            <div className="flex flex-wrap gap-6 mt-8">
+                                {project.website && (
+                                    <Link href={project.website} target="_blank" className="text-sm font-mono text-primary hover:text-white border-b border-transparent hover:border-white transition-colors pb-0.5">
+                                        Live Website
+                                    </Link>
+                                )}
+                                <Link href={project.clientRepository} target="_blank" className="text-sm font-mono text-primary hover:text-white border-b border-transparent hover:border-white transition-colors pb-0.5">
+                                    Client Repo
+                                </Link>
+                                <Link href={project.serverRepository} target="_blank" className="text-sm font-mono text-primary hover:text-white border-b border-transparent hover:border-white transition-colors pb-0.5">
+                                    Server Repo
+                                </Link>
+                            </div>
+                        </div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </motion.div>
     );
 }

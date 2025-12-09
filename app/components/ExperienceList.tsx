@@ -1,7 +1,6 @@
 "use client";
 
 import Link from "next/link";
-
 import SectionTitle from "@/components/ui/SectionTitle";
 import { EXPERIENCES } from "@/constants/experience-constants";
 import { Experience } from "@/types/experience-types";
@@ -9,13 +8,16 @@ import Date from "@/components/ui/Date";
 
 const ExperienceList = () => {
     return (
-        <section className="py-24 px-6 md:px-20 bg-zinc-950/50">
-            <div className="ml-0 md:ml-12 flex flex-col lg:flex-row gap-12">
-                <div className="lg:w-1/3">
-                    <SectionTitle title="EXPERIENCES_LOG" />
+        <section className="py-32 px-6 md:px-12 lg:px-24 w-full max-w-[1800px] mx-auto">
+            <div className="flex flex-col lg:flex-row gap-16 lg:gap-32">
+                <div className="lg:w-1/4 lg:sticky lg:top-32 h-fit">
+                    <SectionTitle title="Experience" number="02" />
+                    <p className="hidden lg:block text-secondary text-sm leading-relaxed mt-8 max-w-xs">
+                        A timeline of my professional journey and the roles I've held in the software development industry.
+                    </p>
                 </div>
 
-                <main className="lg:w-2/3">
+                <main className="lg:w-3/4 flex flex-col gap-20">
                     {EXPERIENCES.map((exp, i) => (
                         <ExperienceComponent key={i} exp={exp} />
                     ))}
@@ -27,27 +29,35 @@ const ExperienceList = () => {
 
 const ExperienceComponent = ({ exp }: { exp: Experience }) => {
     return (
-        <div className="border-l border-border pl-8 relative pb-20">
-            {/* Timeline circle indicator */}
-            <div className="absolute -left-[5px] top-0 w-2.5 h-2.5 bg-primary rounded-full shadow-[0_0_10px_rgba(255,255,255,0.5)]" />
+        <div className="group relative pl-0 md:pl-8 border-l-0 md:border-l border-border-subtle hover:border-zinc-600 transition-colors duration-500">
+            {/* Decorative dot for desktop */}
+            <div className="hidden md:block absolute -left-[5px] top-2 w-2.5 h-2.5 bg-background border border-zinc-600 rounded-full group-hover:bg-white group-hover:border-white transition-colors duration-500" />
 
-            <Date startDate={exp.startDate} endDate={exp.endDate} />
+            <div className="flex flex-col sm:flex-row sm:items-baseline justify-between mb-4">
+                <h3 className="text-2xl md:text-3xl font-bold text-foreground">{exp.role}</h3>
+                <div className="mt-2 sm:mt-0">
+                    <Date startDate={exp.startDate} endDate={exp.endDate} />
+                </div>
+            </div>
 
-            <h3 className="text-3xl font-bold text-primary mt-2">{exp.role}</h3>
-            <h2 className="text-secondary text-sm md:text-base">{exp.additionalInfo}</h2>
-            <Link href={exp.link || "#"} className="text-secondary text-sm md:text-base">{exp.company || ""}</Link>
+            <div className="flex flex-col gap-1 mb-6">
+                <Link href={exp.link || "#"} className="text-lg text-white hover:underline w-fit">
+                    {exp.company}
+                </Link>
+                <h2 className="text-secondary text-sm font-mono">{exp.additionalInfo}</h2>
+            </div>
 
-            {/* One List Item per object inside description (description is an array of Responsibilities and Tasks) */}
-            <ul className="mt-6 text-secondary leading-relaxed">
+            <ul className="flex flex-col gap-3 text-secondary leading-relaxed mb-8">
                 {exp.description.map((item, i) => (
-                    <li key={i}>{item}</li>
+                    <li key={i} className="list-none relative pl-6 before:content-['-'] before:absolute before:left-0 before:text-zinc-600">
+                        {item}
+                    </li>
                 ))}
             </ul>
 
-            {/* Tags representing skills or technologies used in the experience */}
-            <div className="flex gap-2 mt-6 flex-wrap">
+            <div className="flex gap-2 flex-wrap">
                 {exp.tags.map(tag => (
-                    <span key={tag} className="px-3 py-1 bg-surface border border-border rounded-full text-xs text-zinc-300 font-mono">
+                    <span key={tag} className="px-3 py-1 bg-surface border border-border-subtle rounded-full text-xs text-zinc-400 font-mono uppercase tracking-wider">
                         {tag}
                     </span>
                 ))}

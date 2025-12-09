@@ -21,7 +21,7 @@ export default function Home() {
   }, []);
 
   return (
-    <main className="relative w-full min-h-screen bg-background text-foreground selection:bg-white selection:text-black">
+    <main className="relative w-full min-h-screen bg-background text-foreground">
       <CustomCursor />
       
       {/* Noise Texture Overlay */}
@@ -33,8 +33,8 @@ export default function Home() {
       <ContactSection /> 
 
       {/* Minimal Footer */}
-      <footer className="py-12 text-center text-zinc-600 font-mono text-xs uppercase tracking-widest">
-        Gioele Spata © 2025
+      <footer className="py-8 text-center text-zinc-800 font-mono text-[10px] uppercase tracking-widest mix-blend-difference">
+        Gioele Spata © 2025 — All Rights Reserved
       </footer>
     </main>
   );

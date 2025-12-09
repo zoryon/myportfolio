@@ -1,20 +1,17 @@
-const SectionTitle = ({ title }: { title: string }) => {
+"use client";
+
+const SectionTitle = ({ title, number }: { title: string, number?: string }) => {
     return (
-        <div className="mb-12">
-            {/* Command Line Input */}
-            <p className="text-sm font-mono text-gray-500 mb-2">
-                <span className="text-green-400">gioelespata@dev</span>:
-                <span className="text-blue-400">~/myportfolio/</span>
-                $ cat {title.toLowerCase().replace(/\s/g, '-')}.md
-            </p>
-            
-            {/* Section Title Output */}
-            <h2 className="text-3xl font-mono text-white tracking-tight leading-relaxed">
-                {title.toUpperCase()}
+        <div className="mb-16 flex items-baseline gap-4 overflow-hidden">
+            {number && (
+                <span className="font-mono text-xs text-muted tracking-widest">
+                    ({number})
+                </span>
+            )}
+            <h2 className="text-sm font-mono text-secondary tracking-[0.2em] uppercase">
+                {title.replace(/_/g, ' ')}
             </h2>
-            
-            {/* Simple Underline Indicator */}
-            <div className="w-16 h-1 bg-foreground my-2"></div> 
+            <div className="h-px bg-border-subtle grow ml-4 self-center" />
         </div>
     );
 }
